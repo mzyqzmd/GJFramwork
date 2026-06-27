@@ -1,10 +1,9 @@
 # GJFramwork
 用于参加GameJam48-72小时极限开发的中小型框架
-以下是统一格式后的 Markdown 文档：
 
 ---
 
-# GJFramework - GameJam 轻量框架
+# GJFramework - GameJam 轻量框架# GJFramework - A Lightweight Framework for Game JamGJFramework - A Lightweight Framework for Game Jam
 
 ## 框架定位
 
@@ -32,11 +31,11 @@
 
 | 插件 | 说明 |
 |------|------|
-| **Odin Inspector And Serializer** | 官方购买或自行获取。若导入时报错，删除 `Assets/Plugins/Sirenix/Odin Inspector/Modules/Unity.Mathematics/MathematicsDrawers.cs` 即可 |
-| **TextMeshPro** | Unity 内置，直接安装 |
+| **Odin Inspector And SerializerOdin 检查器与序列化器** | 官方购买或反正就是自己想想办法。若导入时报错，删除 `Assets/Plugins/Sirenix/Odin Inspector/Modules/Unity.Mathematics/MathematicsDrawers.cs` 即可 || **Odin Inspector And SerializerOdin 检查器与序列化器** | Purchase officially or obtain on your own. If errors occur upon import, simply delete `Assets/Plugins/Sirenix/Odin Inspector/Modules/Unity.Mathematics/MathematicsDrawers.cs` |
+| **TextMeshPro** | Unity 内置，直接安装 || **TextMeshPro** | Built into Unity, install directly |
 | **DOTween** | 免费版即可 |
-| **InputSystem** | Unity 官方新输入系统 |
-| **ExcelDataReader** | [GitHub 下载](https://github.com/ExcelDataReader/ExcelDataReader/releases)，将 `netstandard2.0` 的 `ExcelDataReader.dll` 放入 `Assets/Plugins` |
+| **InputSystem** | Unity 官方新输入系统 || **InputSystem** | Unity's official new input system |
+| **ExcelDataReader** | [GitHub 下载](https://github.com/ExcelDataReader/ExcelDataReader/releases)，将 `netstandard2.0` 的 `ExcelDataReader.dll` 放入 `Assets/Plugins` || **ExcelDataReader** | [Download from GitHub](https://github.com/ExcelDataReader/ExcelDataReader/releases), place the `ExcelDataReader.dll` from `netstandard2.0` into `Assets/Plugins` |
 
 ---
 

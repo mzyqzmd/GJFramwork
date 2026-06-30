@@ -91,7 +91,7 @@ AudioManager.Instance.StopAllAudio();
 #### 创建事件
 新建一个结构体（不会触发GC），实现 `IGameEvent` 空接口：
 
-```csharp   “‘csharp
+```csharp
 public struct PlayerDiedEvent : IGameEvent
 {
     public string KillerName;
@@ -192,7 +192,7 @@ public class PlayerState : BaseState<PlayerTest>
 
 **2. 写具体状态，继承状态基类：**
 
-```csharp   “‘csharp
+```csharp
 public class PlayerIdleState : PlayerState { /* ... */ }
 public class PlayerRunState  : PlayerState { /* ... */ }
 ```
@@ -288,7 +288,7 @@ _stateMachine.OnStateChanged += (from, to) =>
 2. 把 `InputReader.asset` 拖到 Inspector 上
 3. 在代码里订阅事件：
 
-```csharp   “‘csharp
+```csharp
 [SerializeField] private SO_InputReader _inputReader;
 
 void OnEnable()
@@ -597,24 +597,24 @@ public class CharacterConfig : ScriptableObject
 - 构造方式：`Activator.CreateInstance`，要求有无参构造函数
 - 字段规则同上（public 或 `[SerializeField]`）
 
-> 注意：如果元素类型一个 public/`[SerializeField]` 字段都没有，导入时会报错"没有 public 或 [SerializeField] 字段"。> Note: If an element type has no public or `[SerializeField]` fields, an error will occur during import stating "No public or [SerializeField] fields." 。
+> 注意：如果元素类型一个 public/`[SerializeField]` 字段都没有，导入时会报错"没有 public 或 [SerializeField] 字段"。
 
-```csharp   “‘csharp
+```csharp
 [System.Serializable]
 public class LevelRow
 {
     [ExcelHeader("关卡名称")]  // 可选，字段名与表头不一致时才需要(大小写敏感!!!)
     public string _levelName;
     public int _levelId;
-    public float _timeLimit;   public float _时间
+    public float _timeLimit;
 }
 ```
 
 ##### xlsx 命名要求
 - 文件名必须与模板 .asset 文件名一致（不含扩展名）
 - Windows 上大小写不敏感，但是跨平台（macOS/Linux）区分大小写
-  - 例：`levelConfig.xlsx` ↔ `levelConfig.asset`- Example: `levelConfig.xlsx` ↔ `levelConfig.asset`
-- 文件放在"Excel 读取目录"下（默认 `Assets/GJFramework/Excels/`）- Place the file under the "Excel Read Directory" (default: `Assets/GJFramework/Excels/`)
+  - 例：`levelConfig.xlsx` ↔ `levelConfig.asset`
+- 文件放在"Excel 读取目录"下（默认 `Assets/GJFramework/Excels/`）
 - 扩展名必须是 `.xlsx`（不是 `.xls`）
 - 只读取第一个 Sheet，后续 Sheet 会被忽略
 - 建议：不要用中文命名 xlsx 文件，避免路径处理问题
@@ -623,21 +623,21 @@ public class LevelRow
 - 第 1 行 = 表头行，每一列的值为字段名（或 `[ExcelHeader]` 指定的别名）
 - 第 2 行起 = 数据行，每个单元格的值会按目标字段类型自动转换
 - **表头名匹配规则（按优先级）：**
-  1. 字段上有 `[ExcelHeader("xxx")]` 则用 xxx 匹配1. If a field has `[ExcelHeader("xxx")   ExcelHeader("xxx")], use xxx for matching
+  1. 字段上有 `[ExcelHeader("xxx")]` 则用 xxx 匹配
   2. 没有该特性则用字段名匹配
   3. 表头名忽略首尾空格（自动 Trim）
 - 空表头列会被跳过
 - 空单元格会被跳过（不覆盖字段原值，保留模板中的默认值）
 - 表头行必须存在，否则报错"Excel 没有表头行"
 - 至少有一行数据，否则警告"Excel 没有数据行"并跳过
-- EachRowToAsset 模式额外要求：   - Additional requirements for the EachRowToAsset pattern:
+- EachRowToAsset 模式额外要求：
   - 第一列的值作为 .asset 文件名
   - 第一列不能为空，空名称的行会被跳过并警告
 - 列的顺序不重要，表头名匹配与列的位置无关
 
-**示例布局（levelConfig.xlsx）：****Example Layout (levelConfig.xlsx):**
+**示例布局（levelConfig.xlsx）：**
 
-| 关卡名称 | \_levelId | \_timeLimit || Level Name | \_levelId | \_timeLimit |
+| 关卡名称 | \_levelId | \_timeLimit |
 |----------|-----------|-------------|
 | 新手村   | 1         | 60          |
 | 森林     | 2         | 90          |
@@ -648,39 +648,39 @@ public class LevelRow
 | 类型 | 转换方式 |
 |------|----------|
 | `string` | 直接赋值 |
-| `int` | `int.Parse` |   b| ' int ' b| ' int。解析“|
+| `int` | `int.Parse` |
 | `float` | `float.Parse` |
 | `double` | `double.Parse` |
-| `bool` | `bool.Parse`（注意：Excel 中写 "true"/"false"，不要写 0/1） || `bool   保龄球` | `bool.Parse   保龄球。解析` (Note: In Excel, write "true"/"false", not 0/1) |
-| `enum` | `Enum.Parse`（值与枚举名一致，大小写敏感） || `enum   枚举` | `Enum.Parse   枚举。解析` (value matches enum name, case-sensitive) |
-| `Vector2` | 逗号分隔，如 "1.0,2.5" || `Vector2` | Comma-separated, e.g., "1.0,2.5" |
-| `Vector3` | 逗号分隔，如 "1.0,2.5,3.0" || `Vector3` | Comma-separated, e.g., "1.0,2.5,3.0" |
-| `Color` | HTML 格式，如 "#FF0000" 或 "red" || `Color   颜色` | HTML format, such as " #FF0000" or " red" |
+| `bool` | `bool.Parse`（注意：Excel 中写 "true"/"false"，不要写 0/1） |
+| `enum` | `Enum.Parse`（值与枚举名一致，大小写敏感） |
+| `Vector2` | 逗号分隔，如 "1.0,2.5" |
+| `Vector3` | 逗号分隔，如 "1.0,2.5,3.0" |
+| `Color` | HTML 格式，如 "#FF0000" 或 "red" |
 
 ##### 使用步骤
 
-1. 创建 ScriptableObject 配置类（按上面"SO 类字段要求"写）1. Create a ScriptableObject configuration class (written according to the "SO Class Field Requirements" above)
+1. 创建 ScriptableObject 配置类（按上面"SO 类字段要求"写）
 
 2. 在模板目录下手动创建空白模板 .asset：
-   - 右键 → `Create` → `GJFramework` → 对应菜单项Right-click → `Create   创建` → `GJFramework` → Corresponding menu item
+   - 右键 → `Create` → `GJFramework` → 对应菜单项
    - 模板内容无所谓（可以是空值），只取其类型和文件名
-   - 放在 `Templates/` 下，文件名与 xlsx 同名- Place it under `Templates/   模板/`, with the same filename as the xlsx file
+   - 放在 `Templates/` 下，文件名与 xlsx 同名
 
 3. 在 Excel 目录下放 xlsx 文件，按上面"Sheet 布局要求"填写表头和数据
 
-4. 菜单 `Tools` → `GJFramework` → `Excel` → `打开导入配置窗口`，为每个文件选模式（默认是 EachRowToAsset），点"开始导入"（或逐文件点"导入"）。也可以用"全部RowsToList""全部EachRowToAsset""全部跳过"批量设置。4. Menu `Tools   工具` → `GJFramework` → `Excel` → Open the import configuration window, select a mode for each file (default is EachRowToAsset), then click "Start Import" (or click "Import" for each file individually). You can also use "AllRowsToList". " EachRowToAsset " Skip all "Batch Settings."
+4. 菜单 `Tools` → `GJFramework` → `Excel` → `打开导入配置窗口`，为每个文件选模式（默认是 EachRowToAsset），点"开始导入"（或逐文件点"导入"）。也可以用"全部RowsToList""全部EachRowToAsset""全部跳过"批量设置。
 
 5. 数据会自动填入输出目录下对应的 .asset 文件
 
 ##### 手动读取 Excel 原始数据（不导入 SO）
-```csharp   “‘csharp   ```csharp   “‘csharp
-var sheet = ExcelReader.ReadSheet("Assets/GJFramework/Excels/xxx.xlsx");var sheet = ExcelReader.ReadSheet("Assets/GJFramework/Excels/xxx.xlsx");
-// sheet.Headers 是表头行（string[]）// sheet.Headers is the header row (string[])var sheet = ExcelReader.ReadSheet("Assets/GJFramework/Excels/xxx.xlsx");var sheet = ExcelReader.ReadSheet("Assets/GJFramework/Excels/xxx.xlsx");// sheet.Headers 是表头行（string[]）
-// sheet.Rows 是数据行列表（List<string[]>）// sheet.Rows is a list of data rows (List)// sheet.Rows is a list of data rows (List)
+```csharp
+var sheet = ExcelReader.ReadSheet("Assets/GJFramework/Excels/xxx.xlsx");
+// sheet.Headers 是表头行（string[]）
+// sheet.Rows 是数据行列表（List<string[]>）
 foreach (var row in sheet.Rows)
 {
-    string name = row[0];   // 第一列string name = row[0];   // First columnstring name = row[0];   // 第一列
-    string value = row[1];  // 第二列string value = row[1];  // Second columnstring value = row[1];  // 第二列
+    string name = row[0];   // 第一列
+    string value = row[1];  // 第二列
 }
 // 所有数据都是 string，类型转换自己处理
 // 注意：只读取第一个 Sheet，后续 Sheet 会被忽略
